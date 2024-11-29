@@ -319,11 +319,20 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "1") 
                 )
             }
 
+            // Linha separadora
+            Box(
+                modifier = Modifier
+                    .padding(top = 24.dp, start = 25.dp, end = 25.dp)
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(color = Color(0xFFDADADA))
+            ) { }
 
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 16.dp)
+                    .padding(24.dp)
                     .clip(RoundedCornerShape(20.dp))
                     .border(2.dp, Color.White, RoundedCornerShape(20.dp))
             ) {
@@ -342,12 +351,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "1") 
                     }
                 }
             }
-            Card(
-                modifier = Modifier
-                    .padding(top = 30.dp, start = 25.dp, end = 25.dp)
-                    .fillMaxWidth()
-                    .height(174.dp)
-            ) { }
+
 
             // Linha separadora
             Box(
@@ -440,11 +444,11 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "1") 
                             .fillMaxHeight()
                     ) {
                         Text(text = "ID da Viagem:  ${viagem.id_viagem}", fontSize = 14.sp, color = Color.White)
-                            Text(text = "Material: ${viagem.tipo_carga_nome} ", fontSize = 14.sp, color = Color.White,
-                                modifier = Modifier.padding(top = 10.dp))
+                        Text(text = "Material: ${viagem.tipo_carga_nome} ", fontSize = 14.sp, color = Color.White,
+                            modifier = Modifier.padding(top = 10.dp))
 
-                            Text(text = "Veículo: ${viagem.veiculo_modelo} ", fontSize = 14.sp, color = Color.White,
-                                modifier = Modifier.padding(top = 10.dp))
+                        Text(text = "Veículo: ${viagem.veiculo_modelo} ", fontSize = 14.sp, color = Color.White,
+                            modifier = Modifier.padding(top = 10.dp))
                     }
                     Column(modifier = Modifier.fillMaxSize()) {
                         Button(
@@ -463,7 +467,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "1") 
 //                            )
 
 
-                            }
+                        }
                     }
                     // Informações adicionais de carga
                     Box(
@@ -507,11 +511,11 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "1") 
                                     colors = ButtonDefaults.buttonColors(Color(0xFFF61221)),
                                     onClick = {}
                                 ) {
-                            Text(
-                                text = "Status",
-                                fontSize = 11.sp,
-                                color = Color.White
-                            )
+                                    Text(
+                                        text = "Status",
+                                        fontSize = 11.sp,
+                                        color = Color.White
+                                    )
 
 
                                 }
@@ -531,7 +535,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "1") 
             // Informações adicionais de carga
             Box(
                 contentAlignment = Alignment.Center,
-                        modifier = Modifier
+                modifier = Modifier
                     .padding(top = 20.dp, start = 80.dp, end = 80.dp)
                     .width(250.dp)
                     .height(90.dp)

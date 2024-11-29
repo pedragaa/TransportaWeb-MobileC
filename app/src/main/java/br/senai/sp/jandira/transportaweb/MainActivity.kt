@@ -3,22 +3,13 @@ package br.senai.sp.jandira.transportaweb
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import br.senai.sp.jandira.transportaweb.model.LoginMotorista
 import br.senai.sp.jandira.transportaweb.screens.LoginM
 import br.senai.sp.jandira.transportaweb.screens.empresas.CadastroE
 import br.senai.sp.jandira.transportaweb.screens.empresas.DetalhesViagensE
@@ -40,21 +31,32 @@ class   MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val controleNavegacao = rememberNavController()
-                    NavHost(navController = controleNavegacao,
-                        startDestination = "detalhesViagensEmpresa"
-                    ){
+                    NavHost(
+                        navController = controleNavegacao,
+                        startDestination = "detalhesViagensEmpresa/1"
+                    ) {
                         // ********************************** MOTORISTA ********************************** //
 
-                        composable(route = "cadastroMotorista"){ CadastroM(controleNavegacao) }
-                        composable(route = "loginMotorista"){ LoginM(controleNavegacao) }
+                        composable(route = "cadastroMotorista") { CadastroM(controleNavegacao) }
+                        composable(route = "loginMotorista") { LoginM(controleNavegacao) }
 //                        composable(route = "homeMotorista") { HomeM(controleNavegacao) }
-                        composable(route = "perfilMotorista"){ PerfilH(controleNavegacao) }
-                        composable(route = "detalhesViagensMotorista"){DetalhesViagensM(controleNavegacao)}
+                        composable(route = "perfilMotorista") { PerfilH(controleNavegacao) }
+                        composable(route = "detalhesViagensMotorista") {
+                            DetalhesViagensM(
+                                controleNavegacao
+                            )
+                        }
 
                         // ********************************** EMPRESA ********************************** //
-                        composable(route = "cadastroeEmpresa"){ CadastroE(controleNavegacao) }
-                        composable(route = "loginEmpresa"){ LoginE(controleNavegacao) }
-                        composable(route = "detalhesViagensEmpresa"){DetalhesViagensE(controleNavegacao)}
+                        composable(route = "cadastroeEmpresa") { CadastroE(controleNavegacao) }
+                        composable(route = "loginEmpresa") { LoginE(controleNavegacao) }
+                        composable(route = "detalhesViagensEmpresa/{id}") { backStackEntry ->
+                            // Acessando o parâmetro 'id' da rota
+                            val viagemId = backStackEntry.arguments?.getString("id") ?: "1"
+
+                            // Chama a função passando o id da viagem
+                            DetalhesViagensE(controleDeNavegacao = controleNavegacao, id = viagemId)
+                        }
                     }
 
                 }
@@ -62,3 +64,4 @@ class   MainActivity : ComponentActivity() {
         }
     }
 }
+
