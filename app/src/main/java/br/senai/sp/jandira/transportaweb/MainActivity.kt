@@ -15,6 +15,7 @@ import br.senai.sp.jandira.transportaweb.screens.empresas.CadastroE
 import br.senai.sp.jandira.transportaweb.screens.empresas.DetalhesViagensE
 import br.senai.sp.jandira.transportaweb.screens.empresas.LoginE
 import br.senai.sp.jandira.transportaweb.screens.motoristas.CadastroM
+import br.senai.sp.jandira.transportaweb.screens.motoristas.HomeM
 //import br.senai.sp.jandira.transportaweb.screens.motoristas.HomeM
 import br.senai.sp.jandira.transportaweb.screens.motoristas.PerfilH
 import br.senai.sp.jandira.transportaweb.ui.theme.TransportaWebTheme
@@ -32,13 +33,13 @@ class   MainActivity : ComponentActivity() {
                     val controleNavegacao = rememberNavController()
                     NavHost(
                         navController = controleNavegacao,
-                        startDestination = "detalhesViagensMotorista/7"
+                        startDestination = "HomeMotorista"
                     ) {
                         // ********************************** MOTORISTA ********************************** //
 
                         composable(route = "cadastroMotorista") { CadastroM(controleNavegacao) }
                         composable(route = "loginMotorista") { LoginM(controleNavegacao) }
-//                        composable(route = "homeMotorista") { HomeM(controleNavegacao) }
+                        composable(route = "homeMotorista") { HomeM(controleNavegacao) }
                         composable(route = "perfilMotorista") { PerfilH(controleNavegacao) }
                         composable(route = "detalhesViagensMotorista/{id}") { backStackEntry ->
                             // Acessando o parâmetro 'id' da rota

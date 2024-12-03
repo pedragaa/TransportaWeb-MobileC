@@ -6,6 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -25,7 +30,7 @@ import br.senai.sp.jandira.transportaweb.R
 import br.senai.sp.jandira.transportaweb.model.Viagem
 import br.senai.sp.jandira.transportaweb.repository.CardsRepository
 import br.senai.sp.jandira.transportaweb.ui.theme.TransportaWebTheme
-import br.senai.sp.jandira.transportaweb.utils.encurtarData
+//import br.senai.sp.jandira.transportaweb.utils.encurtarData
 
 @Composable
 fun HomeM(controleDeNavegacao: NavHostController) {
@@ -197,79 +202,119 @@ fun ViagemCard(viagem: Viagem) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 30.dp, start = 18.dp, end = 18.dp)
-            .height(200.dp), // Ajuste a altura conforme necessário
+            .padding(top = 20.dp, start = 16.dp, end = 16.dp)
+            .height(220.dp), // Aumentando a altura um pouco para um layout mais espaçado
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(20.dp)
+        shape = RoundedCornerShape(24.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            // ID Viagem
+            // Título da viagem com um ícone
             Text(
-                text = "ID da Viagem: ${viagem.id_viagem}",
+                text = "Viagem #${viagem.id_viagem}",
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
+                fontSize = 18.sp,
+                color = Color(0xFF1A1A1A) // Cor mais escura para o título
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             // Linha com Partida e Chegada
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Data de partida
-                Text(
-                    text = "Partida: ${encurtarData(viagem.dia_partida)}",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF868686)
-                )
+                // Data de partida com ícone
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Create,
+                        contentDescription = "Partida",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color(0xFF868686)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Partida: ${viagem.dia_partida}",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFF868686)
+                    )
+                }
 
-                // Data de chegada
-                Text(
-                    text = "Chegada: ${encurtarData(viagem.dia_chegada)}",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF868686)
-                )
+                // Data de chegada com ícone
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Chegada",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color(0xFF868686)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Chegada: ${viagem.dia_chegada}",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFF868686)
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             // Linha com Remetente e Destinatário
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Remetente
-                Text(
-                    text = "Remetente: ${viagem.remetente}",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF868686)
-                )
+                // Remetente com ícone
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = "Remetente",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color(0xFF868686)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Remetente: ${viagem.remetente}",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFF868686)
+                    )
+                }
 
-                // Destinatário
-                Text(
-                    text = "Destinatário: ${viagem.destinatario}",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF868686)
-                )
+                // Destinatário com ícone
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Home,
+                        contentDescription = "Destinatário",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color(0xFF868686)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Destinatário: ${viagem.destinatario}",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFF868686)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Divider para separar o conteúdo visualmente
-            Divider(color = Color(0xFFDADADA), thickness = 1.dp)
+            // Divider para separar visualmente
+            Divider(
+                color = Color(0xFFDADADA),
+                thickness = 1.dp,
+                modifier = Modifier.padding(top = 8.dp)
+            )
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
