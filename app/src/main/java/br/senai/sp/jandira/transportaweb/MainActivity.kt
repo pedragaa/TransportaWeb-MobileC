@@ -15,7 +15,6 @@ import br.senai.sp.jandira.transportaweb.screens.empresas.CadastroE
 import br.senai.sp.jandira.transportaweb.screens.empresas.DetalhesViagensE
 import br.senai.sp.jandira.transportaweb.screens.empresas.LoginE
 import br.senai.sp.jandira.transportaweb.screens.motoristas.CadastroM
-import br.senai.sp.jandira.transportaweb.screens.motoristas.DetalhesViagensM
 //import br.senai.sp.jandira.transportaweb.screens.motoristas.HomeM
 import br.senai.sp.jandira.transportaweb.screens.motoristas.PerfilH
 import br.senai.sp.jandira.transportaweb.ui.theme.TransportaWebTheme
@@ -33,7 +32,7 @@ class   MainActivity : ComponentActivity() {
                     val controleNavegacao = rememberNavController()
                     NavHost(
                         navController = controleNavegacao,
-                        startDestination = "detalhesViagensEmpresa/1"
+                        startDestination = "detalhesViagensMotorista/7"
                     ) {
                         // ********************************** MOTORISTA ********************************** //
 
@@ -41,10 +40,12 @@ class   MainActivity : ComponentActivity() {
                         composable(route = "loginMotorista") { LoginM(controleNavegacao) }
 //                        composable(route = "homeMotorista") { HomeM(controleNavegacao) }
                         composable(route = "perfilMotorista") { PerfilH(controleNavegacao) }
-                        composable(route = "detalhesViagensMotorista") {
-                            DetalhesViagensM(
-                                controleNavegacao
-                            )
+                        composable(route = "detalhesViagensMotorista/{id}") { backStackEntry ->
+                            // Acessando o parâmetro 'id' da rota
+                            val viagemId = backStackEntry.arguments?.getString("id") ?: "7"
+
+                            // Chama a função passando o id da viagem
+                            DetalhesViagensE(controleDeNavegacao = controleNavegacao, id = viagemId)
                         }
 
                         // ********************************** EMPRESA ********************************** //
