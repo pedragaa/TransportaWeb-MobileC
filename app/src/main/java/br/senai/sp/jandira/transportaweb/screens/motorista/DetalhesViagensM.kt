@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.transportaweb.screens.empresas
+package br.senai.sp.jandira.transportaweb.screens.motorista
 
 import android.Manifest
 import android.content.Context
@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -64,7 +65,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 @Composable
-fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") {
+fun DetalhesViagensM(controleDeNavegacao: NavHostController, id: String? = "7") {
 
     val viagemId = id ?: "7"
 
@@ -225,15 +226,26 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
                     .fillMaxWidth()
                     .padding(top = 15.dp, start = 25.dp, end = 25.dp)
             ) {
-                Button(
+                Card (
                     modifier = Modifier
-                        .size(46.dp)
-                        .padding(0.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(Color(0xFFF61221)),
-                    onClick = {}
-                ) {
-                    // ícone ou conteúdo do botão
+                        .clickable {
+                            if (controleDeNavegacao.previousBackStackEntry != null) {
+                                controleDeNavegacao.popBackStack()
+                            }
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Image(
+                        painterResource(R.drawable.botaov),
+                        contentDescription = "Logo",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(50.dp)
+                    )
                 }
 
                 Card(
@@ -265,7 +277,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         Text(
-                            text = "Postado dia: ${formatarData(viagem.dia_partida)}",
+                            text = "Postado dia: 12-05-2024",
                             textAlign = TextAlign.Center,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
@@ -279,7 +291,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
                             color = Color(0xFF515151)
                         )
                         Text(
-                            text = "Às: ${formatarHorario(viagem.horario_partida)}",
+                            text = "Às: 08:00",
                             textAlign = TextAlign.Center,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
@@ -297,7 +309,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
                     .background(Color(0xFFF61221), shape = RoundedCornerShape(10.dp))
             ) {
                 Text(
-                    text = "De: $logradouroPartida",
+                    text = "De: Antônio João",
                     color = Color.White,
                     modifier = Modifier
                         .padding(top = 10.dp)
@@ -312,7 +324,7 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
 
                 Spacer(modifier = Modifier.width(30.dp))
                 Text(
-                    text = "Até: $logradouroDestino",
+                    text = "Até: Avenida Diniz",
                     color = Color.White,
                     modifier = Modifier
                         .padding(top = 10.dp)
@@ -443,11 +455,11 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
                             .width(200.dp)
                             .fillMaxHeight()
                     ) {
-                        Text(text = "ID da Viagem:  ${viagem.id_viagem}", fontSize = 14.sp, color = Color.White)
-                        Text(text = "Material: ${viagem.tipo_carga_nome} ", fontSize = 14.sp, color = Color.White,
+                        Text(text = "ID da Viagem:  $123-456-789", fontSize = 14.sp, color = Color.White)
+                        Text(text = "Material: Frágil ", fontSize = 14.sp, color = Color.White,
                             modifier = Modifier.padding(top = 10.dp))
 
-                        Text(text = "Veículo: ${viagem.veiculo_modelo} ", fontSize = 14.sp, color = Color.White,
+                        Text(text = "Veículo: Scania S-560 ", fontSize = 14.sp, color = Color.White,
                             modifier = Modifier.padding(top = 10.dp))
                     }
                     Column(modifier = Modifier.fillMaxSize()) {
@@ -532,19 +544,23 @@ fun DetalhesViagensE(controleDeNavegacao: NavHostController, id: String? = "7") 
                     .height(2.dp)
                     .background(color = Color(0xFFDADADA))
             ) { }
-            // Informações adicionais de carga
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(top = 20.dp, bottom = 18.dp, start = 80.dp, end = 80.dp)
-                    .width(250.dp)
-                    .height(60.dp)
-                    .background(Color(0xFFF61221), shape = RoundedCornerShape(10.dp)),
-            ) {
-                Text(text = "Aceitar Viagem", fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic, color = Color.White)
+                // Informações adicionais de carga
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(top = 20.dp, bottom = 18.dp, start = 90.dp, end = 80.dp)
+                        .width(250.dp)
+                        .height(60.dp)
+                        .background(Color(0xFFF61221), shape = RoundedCornerShape(10.dp)),
+                ) {
+                    Text(text = "Iniciar Viagem",
+                        fontWeight = FontWeight.Bold,
+                        fontStyle = FontStyle.Italic,
+                        color = Color.White,
+                        modifier = Modifier.clickable { controleDeNavegacao.navigate("TelaViagens") })
 
 
-            }
+                }
         }
     }
 }
@@ -599,6 +615,6 @@ fun getLastKnownLocation(
 @Composable
 fun DetalhesViagensPreview() {
     TransportaWebTheme {
-        DetalhesViagensE(controleDeNavegacao = NavHostController(LocalContext.current))
+        DetalhesViagensM(controleDeNavegacao = NavHostController(LocalContext.current))
     }
 }

@@ -43,60 +43,49 @@ import br.senai.sp.jandira.transportaweb.ui.theme.TransportaWebTheme
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 
 @Composable
 fun LoginM(controleDeNavegacao: NavHostController) {
-
     val retrofitFactory = RetrofitFactory()
 
-    var emailState = remember{
-        mutableStateOf("")
-    }
+    var emailState = remember { mutableStateOf("") }
+    var passwordState = remember { mutableStateOf("") }
+    var mensagemErroState = remember { mutableStateOf("") }
 
-    var passwordState = remember{
-        mutableStateOf("")
-    }
-
-    var mensagemErroState = remember {
-        mutableStateOf("")
-    }
-
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-
-    ){
-        Column (
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(top = 44.dp)
-
+            modifier = Modifier.padding(top = 44.dp)
         ) {
             Box(
                 modifier = Modifier
                     .width(250.dp)
                     .height(100.dp)
                     .padding(start = 10.dp)
-            ){
+            ) {
                 Image(
                     painterResource(R.drawable.logoo),
                     contentDescription = "Logo",
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 )
             }
             Spacer(modifier = Modifier.height(64.dp))
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-            ){
+            ) {
                 Text(
                     text = "SEJA BEM VINDO DE VOLTA!",
                     fontFamily = FontFamily.Default,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
-
-                    )
+                )
                 Text(
                     text = "Digite seu e-mail aqui:",
                     fontWeight = FontWeight.Medium,
@@ -104,11 +93,10 @@ fun LoginM(controleDeNavegacao: NavHostController) {
                         .padding(top = 59.dp, end = 148.dp, bottom = 4.dp)
                 )
                 OutlinedTextField(
-                    modifier = Modifier
-                        .height(60.dp),
+                    modifier = Modifier.height(60.dp),
                     shape = RoundedCornerShape(10.dp),
                     value = emailState.value,
-                    onValueChange = { emailState.value = it},
+                    onValueChange = { emailState.value = it },
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFFF61221),
                         unfocusedBorderColor = Color(0xFF131313),
@@ -116,12 +104,7 @@ fun LoginM(controleDeNavegacao: NavHostController) {
                         unfocusedContainerColor = Color(0xFFF4F4F4)
                     ),
                     label = {
-
-                        Text(
-                            text = "E-mail",
-                            modifier = Modifier
-                                .padding(start = 0.dp)
-                        )
+                        Text(text = "E-mail", modifier = Modifier.padding(start = 0.dp))
                     }
                 )
                 Text(
@@ -130,25 +113,27 @@ fun LoginM(controleDeNavegacao: NavHostController) {
                         .padding(top = 59.dp, end = 130.dp)
                 )
                 OutlinedTextField(
-                    modifier = Modifier
-                        .height(60.dp),
+                    modifier = Modifier.height(60.dp),
                     shape = RoundedCornerShape(10.dp),
+                    value = passwordState.value,
+                    onValueChange = { passwordState.value = it },
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFFF61221),
                         unfocusedBorderColor = Color(0xFF131313),
                         focusedContainerColor = Color(0xFFFFFFFF),
                         unfocusedContainerColor = Color(0xFFFFFFFF)
                     ),
-                    value = passwordState.value,
-                    onValueChange = {passwordState.value = it},
                     label = {
-
-                        Text(
-                            text = "Senha",
-                            modifier = Modifier
-                                .padding(start = 0.dp)
-                        )
-                    }
+                        Text(text = "Senha", modifier = Modifier.padding(start = 0.dp))
+                    },
+                    visualTransformation = PasswordVisualTransformation(), // Esconde a senha
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = {
+                        // Aqui você pode adicionar o comportamento quando o usuário pressionar "Done"
+                    })
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -167,14 +152,8 @@ fun LoginM(controleDeNavegacao: NavHostController) {
                         color = Color.DarkGray
                     )
                 }
-                Column (
-                    modifier = Modifier
-                        .padding(top = 28.dp)
-                ){
-                    Text(
-                        text = "ESQUECI A SENHA",
-                        fontWeight = FontWeight.Bold
-                    )
+                Column(modifier = Modifier.padding(top = 28.dp)) {
+                    Text(text = "ESQUECI A SENHA", fontWeight = FontWeight.Bold)
                 }
                 Button(
                     modifier = Modifier
@@ -182,10 +161,8 @@ fun LoginM(controleDeNavegacao: NavHostController) {
                         .height(110.dp)
                         .padding(top = 64.dp),
                     shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults
-                        .buttonColors(containerColor = Color(0xFFF61221)),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF61221)),
                     onClick = {
-
                         val motoristaLogin = LoginMotorista(
                             email = emailState.value,
                             senha = passwordState.value
@@ -214,7 +191,7 @@ fun LoginM(controleDeNavegacao: NavHostController) {
                             }
                         })
                     }
-                ){
+                ) {
                     Text(
                         text = "LOGIN",
                         fontWeight = FontWeight.Bold,
@@ -225,7 +202,6 @@ fun LoginM(controleDeNavegacao: NavHostController) {
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {

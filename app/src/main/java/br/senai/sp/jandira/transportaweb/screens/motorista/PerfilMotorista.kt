@@ -182,6 +182,7 @@ fun PerfilH(controleDeNavegacao: NavHostController) {
                 onClick = {}
             ) {
                 Text(
+
                     text = "FINALIZAR",
                     fontFamily = FontFamily.Default,
                     fontWeight = FontWeight.Bold,
@@ -199,4 +200,3 @@ fun PerfilPreview() {
         PerfilH(controleDeNavegacao = NavHostController(LocalContext.current))
     }
 }
-

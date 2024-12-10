@@ -2,8 +2,11 @@ package br.senai.sp.jandira.transportaweb.screens.motoristas
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
@@ -28,7 +32,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
         color = Color(0xFFC00000)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().clickable { controleNavegacao.navigate("detalhesViagensMotorista") },
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -50,8 +54,30 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                             .padding(start = 30.dp, top = 10.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        Card (
+                            modifier = Modifier
+                                .clickable {
+                                    if (controleNavegacao.previousBackStackEntry != null) {
+                                        controleNavegacao.popBackStack()
+                                    }
+                                }
+                                .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                            colors = CardDefaults
+                                .cardColors(
+                                    containerColor = Color.Transparent
+                                )
+                        ){
+                            Image(
+                                painterResource(R.drawable.botaov),
+                                contentDescription = "Logo",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(50.dp)
+                            )
+                        }
                         Text(
-                            text = "Olá, Nome",
+                            modifier = Modifier.padding(start = 12.dp),
+                            text = "Olá, Yasmin",
                             style = TextStyle(
                                 color = Color(0xFFBB4848),
                                 fontSize = 20.sp
@@ -116,7 +142,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         Text(
                             text = "Em Andamento",
                             style = TextStyle(
-                                color = Color(0xFF000000),
+                                color = Color(0xFFBB4848),
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold
                             )
@@ -161,7 +187,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         verticalAlignment = Alignment.Top
                     ) {
                         Text(
-                            text = "Pedro Pedraga",
+                            text = "DHL Jandira",
                             color = Color(0xFFBB4848),
                             style = TextStyle(fontSize = 20.sp),
                             fontWeight = FontWeight.Bold
@@ -190,7 +216,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = "6391 Elgin St. Celina, Delaware 10299",
+                            text = "De: Antônio João, Até: Avenida Diniz ",
                             color = Color.Gray,
                             fontWeight = FontWeight.Bold,
                             style = TextStyle(fontSize = 14.sp)
@@ -212,7 +238,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = "Product - 02",
+                            text = "Frágil",
                             color = Color.Gray,
                             style = TextStyle(fontSize = 14.sp)
                         )
@@ -225,7 +251,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.circle),
+                            painter = painterResource(id = R.drawable.caminhao),
                             contentDescription = "Círculo",
                             modifier = Modifier.size(30.dp)
                         )
@@ -233,7 +259,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = "Price - $52.01",
+                            text = "Scania S-560",
                             color = Color.Gray,
                             style = TextStyle(fontSize = 14.sp)
                         )
@@ -262,7 +288,7 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                         ) {
 
                             Text(
-                                text = "WO# 04-1209",
+                                text = "123-456-789",
                                 color = Color.White,
                                 modifier = Modifier
                                     .align(Alignment.Center)
@@ -278,13 +304,146 @@ fun TelaViagens(controleNavegacao: NavHostController) {
                                 .background(Color(0xFFC00000))
                         ) {
                             Text(
-                                text = "03",
+                                text = "01",
                                 color = Color.White,
                                 modifier = Modifier
                                     .align(Alignment.Center),
                                 style = TextStyle(fontWeight = FontWeight.Bold)
                             )
                         }
+                    }
+                }
+            }
+        }
+        Box(
+            modifier = Modifier
+                .padding(top = 760.dp)
+                .background(
+                    color = Color(0xFFFFFFFF), shape =
+                    RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
+                )
+        ){
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(start = 20.dp, top = 10.dp, end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ){
+                Card (
+                    modifier = Modifier
+                        .clickable {
+                            controleNavegacao.navigate("homeMotorista")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.home),
+                            contentDescription = "Home",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(42.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Home",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+                Card(
+                    modifier = Modifier
+                        .clickable {
+                            controleNavegacao.navigate("telaViagens")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.caminhao),
+                            contentDescription = "Caminhao",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Viagens",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+                Card (
+                    modifier = Modifier
+                        .clickable {
+                            controleNavegacao.navigate("contatos")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.chat),
+                            contentDescription = "Chat",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Chat",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+                Card(
+                    modifier = Modifier
+                        .clickable {
+                            controleNavegacao.navigate("perfilMotorista")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ) {
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.perfil),
+                            contentDescription = "Perfil",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(42.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Perfil",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
                     }
                 }
             }
@@ -297,4 +456,3 @@ fun TelaViagens(controleNavegacao: NavHostController) {
 fun PreviewTelaViagens() {
     TelaViagens(controleNavegacao = NavHostController(LocalContext.current))
 }
-

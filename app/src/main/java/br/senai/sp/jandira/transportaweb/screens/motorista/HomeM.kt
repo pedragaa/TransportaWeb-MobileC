@@ -3,14 +3,10 @@ package br.senai.sp.jandira.transportaweb.screens.motoristas
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -27,15 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.transportaweb.R
-import br.senai.sp.jandira.transportaweb.model.Viagem
-import br.senai.sp.jandira.transportaweb.repository.CardsRepository
 import br.senai.sp.jandira.transportaweb.ui.theme.TransportaWebTheme
-//import br.senai.sp.jandira.transportaweb.utils.encurtarData
 
 @Composable
 fun HomeM(controleDeNavegacao: NavHostController) {
-    val cards = CardsRepository().listarTodosOsCards()
-
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFFF61221)
@@ -46,13 +37,13 @@ fun HomeM(controleDeNavegacao: NavHostController) {
             // Header Section
             Column(
                 modifier = Modifier
-                    .height(225.dp)
+                    .height(200.dp)
                     .background(
                         Color.White, shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
                     )
             ) {
                 Row(
-                    modifier = Modifier.padding(top = 30.dp, start = 0.dp)
+                    modifier = Modifier.padding(top = 30.dp)
                 ) {
                     Box(
                         modifier = Modifier
@@ -68,38 +59,16 @@ fun HomeM(controleDeNavegacao: NavHostController) {
                     }
                     Text(
                         modifier = Modifier
-                            .padding(top = 16.dp, start = 70.dp),
-                        text = "Jamal",
+                            .padding(top = 16.dp, start = 90.dp),
+                        text = "Yasmin Alex",
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp,
                         color = Color.Black
                     )
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .padding(end = 26.dp)
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Card(
-                            modifier = Modifier
-                                .padding(0.dp)
-                                .size(55.dp),
-                            shape = CircleShape,
-                            border = BorderStroke(2.dp, Color.White)
-                        ) {
-                            // Placeholder for image or content
-                        }
-                        Text(
-                            modifier = Modifier
-                                .padding(top = 12.dp)
-                                .background(
-                                    Color(0xFFF61221),
-                                    shape = RoundedCornerShape(20.dp)
-                                ),
-                            text = "Status",
-                            textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White
-                        )
+
                     }
                 }
 
@@ -120,35 +89,49 @@ fun HomeM(controleDeNavegacao: NavHostController) {
                 Text(
                     modifier = Modifier.padding(horizontal = 15.dp)
                         .padding(top = 12.dp),
-                    text = "À serviço da Vanderley Transportes.",
+                    text = "À serviço da Translog Expresso.",
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.SemiBold,
                     color = Color(0xFF868686)
                 )
             }
 
-            // Adicionando o card de Viagem
+            // Adicionando os cards de Viagem com informações estáticas
             ViagemCard(
-                viagem = Viagem(
-                    id = 1,
-                    id_viagem = "12345",
-                    dia_partida = "2024-12-05 08:00",
-                    dia_chegada = "2024-12-05 18:00",
-                    destino_cep = "06317-200",
-                    partida_cep = "06317-200",
-                    destinatario = "SDS",
-                    remetente = "DHL",
-                    veiculo_modelo = "Scania",
-                    tipo_carga_nome = "Frágil",
-                    status_entregue = 0,
-                    empresa_nome = "DHL",
-                    motorista_nome = "Pedro",
-                    horario_partida = "08:00:00"
-                    )
+                idViagem = "123-456-789",
+                diaPartida = "2024-12-05 08:00",
+                diaChegada = "2024-12-05 18:00",
+                partidaCep = "06317-200",
+                destinoCep = "06317-200",
+                destinatario = "Avenida Diniz",
+                remetente = "Antônio João",
+                veiculoModelo = "Scania",
+                tipoCargaNome = "Frágil",
+                statusEntregue = 0,
+                empresaNome = "DHL",
+                motoristaNome = "Pedro",
+                horarioPartida = "08:00:00",
+                controleDeNavegacao = controleDeNavegacao
             )
 
-            // Espaço dinâmico para empurrar a Box (Rodapé) para o final da tela
-            Spacer(modifier = Modifier.weight(1f)) // Este espaçamento empurra a Box para o fundo
+            ViagemCard(
+                idViagem = "987-654-321",
+                diaPartida = "2024-12-06 10:00",
+                diaChegada = "2024-12-06 20:00",
+                partidaCep = "04567-890",
+                destinoCep = "01532-400",
+                destinatario = "AlphaTech",
+                remetente = "Omega Corp",
+                veiculoModelo = "Volvo FH",
+                tipoCargaNome = "Perecível",
+                statusEntregue = 0,
+                empresaNome = "Omega",
+                motoristaNome = "Carlos",
+                horarioPartida = "10:00:00",
+                controleDeNavegacao = controleDeNavegacao
+            )
+
+            Spacer(modifier = Modifier.weight(1f)) // Espaço dinâmico para empurrar a Box para o final da tela
 
             // Footer Section
             Box(
@@ -166,7 +149,7 @@ fun HomeM(controleDeNavegacao: NavHostController) {
                     ) {
                         Image(
                             painter = painterResource(R.drawable.caminhao),
-                            contentDescription = "Caminhao",
+                            contentDescription = "Caminhão",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(40.dp)
                         )
@@ -194,123 +177,234 @@ fun HomeM(controleDeNavegacao: NavHostController) {
                 }
             }
         }
+        Box(
+            modifier = Modifier
+                .padding(top = 760.dp)
+                .background(
+                    color = Color(0xFFFFFFFF), shape =
+                    RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
+                )
+        ){
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(start = 20.dp, top = 10.dp, end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ){
+                Card (
+                    modifier = Modifier
+                        .clickable {
+                            controleDeNavegacao.navigate("homeMotorista")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.home),
+                            contentDescription = "Home",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(42.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Home",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+                Card(
+                    modifier = Modifier
+                        .clickable {
+                            controleDeNavegacao.navigate("telaViagens")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.caminhao),
+                            contentDescription = "Caminhao",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Viagens",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+                Card (
+                    modifier = Modifier
+                        .clickable {
+                            controleDeNavegacao.navigate("contatos")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.chat),
+                            contentDescription = "Chat",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Chat",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+                Card(
+                    modifier = Modifier
+                        .clickable {
+                            controleDeNavegacao.navigate("perfilMotorista")
+                        }
+                        .background(Color.White, shape = RoundedCornerShape(20.dp)),
+                    colors = CardDefaults
+                        .cardColors(
+                            containerColor = Color.Transparent
+                        )
+                ) {
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
+                        Image(
+                            painterResource(R.drawable.perfil),
+                            contentDescription = "Perfil",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(42.dp)
+                                .padding(start = 0.dp)
+                        )
+                        Text(
+                            text = "Perfil",
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFF61221)
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
+
+
+
 @Composable
-fun ViagemCard(viagem: Viagem) {
+fun ViagemCard(
+    idViagem: String,
+    diaPartida: String,
+    diaChegada: String,
+    partidaCep: String,
+    destinoCep: String,
+    destinatario: String,
+    remetente: String,
+    veiculoModelo: String,
+    tipoCargaNome: String,
+    statusEntregue: Int,
+    empresaNome: String,
+    motoristaNome: String,
+    horarioPartida: String,
+    controleDeNavegacao: NavHostController
+) {
     Card(
         modifier = Modifier
+            .clickable {
+                // Navegar para a tela de detalhes passando o id da viagem
+                controleDeNavegacao.navigate("detalhesViagensMotorista")
+            }
             .fillMaxWidth()
             .padding(top = 20.dp, start = 16.dp, end = 16.dp)
-            .height(220.dp), // Aumentando a altura um pouco para um layout mais espaçado
+            .height(140.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(24.dp)
+        shape = RoundedCornerShape(12.dp)
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Título da viagem com um ícone
-            Text(
-                text = "Viagem #${viagem.id_viagem}",
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                color = Color(0xFF1A1A1A) // Cor mais escura para o título
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Linha com Partida e Chegada
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier.fillMaxHeight()
             ) {
-                // Data de partida com ícone
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Create,
-                        contentDescription = "Partida",
-                        modifier = Modifier.size(20.dp),
-                        tint = Color(0xFF868686)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
+                // Status e ID da viagem
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Text(
-                        text = "Partida: ${viagem.dia_partida}",
+                        text = "Em andamento.",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF868686),
+                        modifier = Modifier
+                            .background(Color(0xFFE0E0E0), shape = RoundedCornerShape(8.dp))
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    )
+                    Text(
+                        text = "#$idViagem",
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF868686)
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF1A1A1A)
                     )
                 }
 
-                // Data de chegada com ícone
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Chegada",
-                        modifier = Modifier.size(20.dp),
-                        tint = Color(0xFF868686)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "Chegada: ${viagem.dia_chegada}",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF868686)
-                    )
-                }
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Informações de partida e destino
+                Text(
+                    text = "De: $remetente  -  Para: $destinatario",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color(0xFF868686)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Datas de partida e chegada
+                Text(
+                    text = "$diaPartida   -   $diaChegada",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color(0xFF868686)
+                )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Linha com Remetente e Destinatário
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                // Remetente com ícone
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Remetente",
-                        modifier = Modifier.size(20.dp),
-                        tint = Color(0xFF868686)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "Remetente: ${viagem.remetente}",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF868686)
-                    )
-                }
-
-                // Destinatário com ícone
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Home,
-                        contentDescription = "Destinatário",
-                        modifier = Modifier.size(20.dp),
-                        tint = Color(0xFF868686)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "Destinatário: ${viagem.destinatario}",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF868686)
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Divider para separar visualmente
-            Divider(
-                color = Color(0xFFDADADA),
-                thickness = 1.dp,
-                modifier = Modifier.padding(top = 8.dp)
+            // Ícone de carga
+            Image(
+                painter = painterResource(id = R.drawable.box),
+                contentDescription = "Ícone de carga",
+                modifier = Modifier
+                    .size(60.dp)
+                    .align(Alignment.CenterVertically)
             )
         }
     }

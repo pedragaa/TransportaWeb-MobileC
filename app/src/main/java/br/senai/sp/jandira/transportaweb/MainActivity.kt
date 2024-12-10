@@ -12,12 +12,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.senai.sp.jandira.transportaweb.screens.LoginM
 import br.senai.sp.jandira.transportaweb.screens.empresas.CadastroE
-import br.senai.sp.jandira.transportaweb.screens.empresas.DetalhesViagensE
 import br.senai.sp.jandira.transportaweb.screens.empresas.LoginE
+import br.senai.sp.jandira.transportaweb.screens.geral.ChatSreen
+import br.senai.sp.jandira.transportaweb.screens.geral.Contatos
+import br.senai.sp.jandira.transportaweb.screens.motorista.DetalhesViagensM
+import br.senai.sp.jandira.transportaweb.screens.motorista.DetalhesViagensM
 import br.senai.sp.jandira.transportaweb.screens.motoristas.CadastroM
 import br.senai.sp.jandira.transportaweb.screens.motoristas.HomeM
 //import br.senai.sp.jandira.transportaweb.screens.motoristas.HomeM
 import br.senai.sp.jandira.transportaweb.screens.motoristas.PerfilH
+import br.senai.sp.jandira.transportaweb.screens.motoristas.TelaViagens
 import br.senai.sp.jandira.transportaweb.ui.theme.TransportaWebTheme
 
 class   MainActivity : ComponentActivity() {
@@ -33,7 +37,7 @@ class   MainActivity : ComponentActivity() {
                     val controleNavegacao = rememberNavController()
                     NavHost(
                         navController = controleNavegacao,
-                        startDestination = "HomeMotorista"
+                        startDestination = "loginMotorista"
                     ) {
                         // ********************************** MOTORISTA ********************************** //
 
@@ -41,29 +45,27 @@ class   MainActivity : ComponentActivity() {
                         composable(route = "loginMotorista") { LoginM(controleNavegacao) }
                         composable(route = "homeMotorista") { HomeM(controleNavegacao) }
                         composable(route = "perfilMotorista") { PerfilH(controleNavegacao) }
-                        composable(route = "detalhesViagensMotorista/{id}") { backStackEntry ->
-                            // Acessando o parâmetro 'id' da rota
-                            val viagemId = backStackEntry.arguments?.getString("id") ?: "7"
+                        composable(route = "detalhesViagensMotorista") { DetalhesViagensM(controleNavegacao) }
 
-                            // Chama a função passando o id da viagem
-                            DetalhesViagensE(controleDeNavegacao = controleNavegacao, id = viagemId)
-                        }
+
 
                         // ********************************** EMPRESA ********************************** //
                         composable(route = "cadastroeEmpresa") { CadastroE(controleNavegacao) }
                         composable(route = "loginEmpresa") { LoginE(controleNavegacao) }
-                        composable(route = "detalhesViagensEmpresa/{id}") { backStackEntry ->
-                            // Acessando o parâmetro 'id' da rota
-                            val viagemId = backStackEntry.arguments?.getString("id") ?: "1"
+                        composable(route = "telaViagens") { TelaViagens(controleNavegacao) }
 
-                            // Chama a função passando o id da viagem
-                            DetalhesViagensE(controleDeNavegacao = controleNavegacao, id = viagemId)
-                        }
+                        // ********************************** GERAL ********************************** //
+
+                        composable(route = "chatScreen"){ ChatSreen(controleNavegacao)}
+                        composable(route = "contatos"){ Contatos(controleNavegacao) }
+
+
+                    }
                     }
 
                 }
             }
         }
     }
-}
+
 
